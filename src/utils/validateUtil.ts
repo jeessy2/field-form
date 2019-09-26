@@ -6,7 +6,6 @@ import {
   ValidateOptions,
   ValidateMessages,
   RuleObject,
-  Rule,
   StoreValue,
 } from '../interface';
 import { setValues } from './valueUtil';
@@ -102,6 +101,7 @@ async function validateRule(
           : message),
       );
     } else {
+      console.error(errObj);
       result = [(messages.default as (() => string))()];
     }
   }
@@ -140,7 +140,7 @@ export function validateRules(
     }
     return {
       ...currentRule,
-      validator(rule: Rule, val: StoreValue, callback: (error?: string) => void) {
+      validator(rule: RuleObject, val: StoreValue, callback: (error?: string) => void) {
         let hasPromise = false;
 
         // Wrap callback only accept when promise not provided
